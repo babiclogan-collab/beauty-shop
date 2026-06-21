@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — LUMÉ</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --obsidian: #0A0709;
+    --void: #110D12;
+    --deep: #1A1020;
+    --amethyst: #3D1F5C;
+    --violet: #6B3FA0;
+    --smoke: #C8B8D8;
+    --mist: #E8E0F0;
+    --ember: #D4A853;
+    --crimson: #8B2252;
+    --text: #E8E0F0;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--obsidian);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  .float-nav {
+    position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
+    background: rgba(10, 7, 9, 0.88); backdrop-filter: blur(16px);
+    border: 1px solid rgba(107, 63, 160, 0.3);
+    border-radius: 50px; padding: 14px 32px;
+    display: flex; align-items: center; gap: 32px; z-index: 100;
+  }
+  .float-nav a {
+    color: var(--smoke); text-decoration: none; font-size: 0.78rem;
+    letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .float-nav a:hover { opacity: 1; color: var(--mist); }
+  .float-nav a.active { opacity: 1; color: var(--ember); }
+  .float-nav .nav-logo {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600;
+    letter-spacing: 0.2em; color: var(--ember);
+  }
+
+  .contact-wrap {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 100px;
+  }
+
+  .contact-left {
+    padding: 80px 80px 80px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: radial-gradient(ellipse at 20% 30%, #3D1F5C 0%, #0A0709 65%);
+  }
+
+  .eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--ember); margin-bottom: 20px; font-weight: 500;
+  }
+
+  .contact-left h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+    font-weight: 300; color: var(--mist); line-height: 1.1; margin-bottom: 24px;
+  }
+  .contact-left h1 em { font-style: italic; color: var(--violet); }
+
+  .contact-left > p {
+    font-size: 0.92rem; line-height: 1.8; color: rgba(200,184,216,0.55);
+    max-width: 380px; margin-bottom: 48px; font-weight: 300;
+  }
+
+  .contact-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+
+  .contact-icon {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(107, 63, 160, 0.15);
+    border: 1px solid rgba(212, 168, 83, 0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ember); font-size: 1rem; flex-shrink: 0;
+  }
+
+  .contact-detail h5 {
+    font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--smoke); margin-bottom: 4px; font-weight: 500;
+  }
+
+  .contact-detail p {
+    font-size: 0.88rem; color: rgba(200,184,216,0.5); font-weight: 300;
+  }
+
+  .contact-right {
+    padding: 80px 80px 80px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .contact-form {
+    background: var(--deep);
+    border: 1px solid rgba(107, 63, 160, 0.2);
+    border-radius: 24px;
+    padding: 48px;
+    max-width: 460px;
+  }
+
+  .form-group { margin-bottom: 24px; }
+
+  .form-group label {
+    display: block;
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--smoke); margin-bottom: 10px; font-weight: 500;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid rgba(107, 63, 160, 0.3);
+    border-radius: 12px;
+    background: rgba(10, 7, 9, 0.6);
+    color: var(--mist);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: rgba(107, 63, 160, 0.7);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 110px; }
+
+  .form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23C8B8D8' stroke-width='1.5' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(200,184,216,0.3); }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--amethyst);
+    border: 1px solid rgba(107, 63, 160, 0.5);
+    color: var(--mist);
+    padding: 16px;
+    font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+    border-radius: 50px; font-weight: 500; cursor: pointer;
+    transition: background 0.25s, box-shadow 0.25s;
+  }
+
+  .submit-btn:hover { background: var(--violet); box-shadow: 0 8px 32px rgba(107,63,160,0.4); }
+
+  footer {
+    background: #050305;
+    border-top: 1px solid rgba(107, 63, 160, 0.15);
+    padding: 60px 80px 40px;
+    color: rgba(200, 184, 216, 0.35);
+    text-align: center;
+  }
+  .footer-brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 600; letter-spacing: 0.2em; color: var(--ember); margin-bottom: 12px;
+  }
+  .footer-bottom-text { font-size: 0.75rem; margin-top: 24px; }
+
+  @media (max-width: 900px) {
+    .contact-wrap { grid-template-columns: 1fr; padding-top: 90px; }
+    .contact-left, .contact-right { padding: 50px 36px; }
+    .contact-form { padding: 32px 28px; max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="float-nav">
+  <a href="beauty-shop.html" class="nav-logo">LUMÉ</a>
+  <a href="shop.html">Shop</a>
+  <a href="about.html">About</a>
+  <a href="contact.html" class="active">Contact</a>
+  <a href="cart.html">Cart</a>
+</nav>
+
+<div class="contact-wrap">
+  <div class="contact-left">
+    <p class="eyebrow">Get in Touch</p>
+    <h1>We read <em>every</em><br>message</h1>
+    <p>Questions about a formula, your order, or a collaboration — reach out. We typically respond within one business day.</p>
+
+    <div class="contact-detail">
+      <div class="contact-icon">✉</div>
+      <div>
+        <h5>Email</h5>
+        <p>hello@lumebeauty.com</p>
+      </div>
+    </div>
+
+    <div class="contact-detail">
+      <div class="contact-icon">☎</div>
+      <div>
+        <h5>Phone</h5>
+        <p>+1 (555) 014-2298</p>
+      </div>
+    </div>
+
+    <div class="contact-detail">
+      <div class="contact-icon">⌂</div>
+      <div>
+        <h5>Studio</h5>
+        <p>118 Ashgrove Lane, Portland, OR 97209</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-right">
+    <form class="contact-form" id="contactForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Your full name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="your@email.com" required>
+      </div>
+      <div class="form-group">
+        <label for="topic">Topic</label>
+        <select id="topic">
+          <option>Order question</option>
+          <option>Product question</option>
+          <option>Wholesale & press</option>
+          <option>Something else</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" placeholder="Tell us what's on your mind..." required></textarea>
+      </div>
+      <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand-name">LUMÉ</div>
+  <div class="footer-bottom-text">© 2026 LUMÉ Beauty. All rights reserved.</div>
+</footer>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = '#6B3FA0';
+    setTimeout(() => {
+      btn.textContent = 'Send Message';
+      btn.style.background = '';
+      this.reset && this.reset();
+    }, 2000);
+  });
+</script>
+</body>
+</html>
