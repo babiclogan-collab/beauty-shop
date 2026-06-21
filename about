@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Story — LUMÉ</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --obsidian: #0A0709;
+    --void: #110D12;
+    --deep: #1A1020;
+    --amethyst: #3D1F5C;
+    --violet: #6B3FA0;
+    --smoke: #C8B8D8;
+    --mist: #E8E0F0;
+    --ember: #D4A853;
+    --crimson: #8B2252;
+    --text: #E8E0F0;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--obsidian);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  .float-nav {
+    position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
+    background: rgba(10, 7, 9, 0.88); backdrop-filter: blur(16px);
+    border: 1px solid rgba(107, 63, 160, 0.3);
+    border-radius: 50px; padding: 14px 32px;
+    display: flex; align-items: center; gap: 32px; z-index: 100;
+  }
+  .float-nav a {
+    color: var(--smoke); text-decoration: none; font-size: 0.78rem;
+    letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .float-nav a:hover { opacity: 1; color: var(--mist); }
+  .float-nav a.active { opacity: 1; color: var(--ember); }
+  .float-nav .nav-logo {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600;
+    letter-spacing: 0.2em; color: var(--ember);
+  }
+
+  .hero-about {
+    padding: 200px 80px 100px;
+    text-align: center;
+    background: radial-gradient(ellipse at 50% 0%, #3D1F5C 0%, #0A0709 65%);
+    border-bottom: 1px solid rgba(107, 63, 160, 0.15);
+  }
+
+  .eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--ember); margin-bottom: 20px; font-weight: 500;
+  }
+
+  .hero-about h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.6rem, 5.5vw, 5rem);
+    font-weight: 300; color: var(--mist); line-height: 1.08;
+    max-width: 800px; margin: 0 auto;
+  }
+  .hero-about h1 em { font-style: italic; color: var(--violet); }
+
+  .story-section {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 100px 40px;
+  }
+
+  .story-section p {
+    font-size: 1rem;
+    line-height: 2;
+    color: rgba(200, 184, 216, 0.65);
+    font-weight: 300;
+    margin-bottom: 28px;
+  }
+
+  .story-section p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem;
+    color: var(--ember);
+    float: left;
+    line-height: 0.8;
+    margin: 8px 12px 0 0;
+    font-weight: 400;
+  }
+
+  .pull-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--smoke);
+    text-align: center;
+    line-height: 1.5;
+    margin: 60px 0;
+    padding: 0 40px;
+    border-left: none;
+  }
+  .pull-quote::before, .pull-quote::after { color: var(--ember); }
+
+  .values-section {
+    background: var(--void);
+    border-top: 1px solid rgba(107, 63, 160, 0.15);
+    border-bottom: 1px solid rgba(107, 63, 160, 0.15);
+    padding: 100px 80px;
+  }
+
+  .section-header { text-align: center; margin-bottom: 64px; }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300; color: var(--mist);
+  }
+  .section-title em { font-style: italic; color: var(--violet); }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .value-card {
+    text-align: center;
+    padding: 36px 24px;
+    border: 1px solid rgba(107, 63, 160, 0.18);
+    border-radius: 20px;
+    background: var(--deep);
+    transition: border-color 0.3s;
+  }
+  .value-card:hover { border-color: rgba(107,63,160,0.5); }
+
+  .value-icon {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(107, 63, 160, 0.15);
+    border: 1px solid rgba(212, 168, 83, 0.3);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; color: var(--ember); font-style: italic;
+  }
+
+  .value-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem; font-weight: 400; color: var(--mist); margin-bottom: 10px;
+  }
+
+  .value-card p {
+    font-size: 0.82rem; line-height: 1.7; color: rgba(200,184,216,0.5); font-weight: 300;
+  }
+
+  .stats-section {
+    padding: 100px 80px;
+    text-align: center;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    max-width: 900px;
+    margin: 60px auto 0;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; font-weight: 300; color: var(--ember); line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(200,184,216,0.5); margin-top: 10px;
+  }
+
+  footer {
+    background: #050305;
+    border-top: 1px solid rgba(107, 63, 160, 0.15);
+    padding: 60px 80px 40px;
+    color: rgba(200, 184, 216, 0.35);
+    text-align: center;
+  }
+  .footer-brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 600; letter-spacing: 0.2em; color: var(--ember); margin-bottom: 12px;
+  }
+  .footer-bottom-text { font-size: 0.75rem; margin-top: 24px; }
+
+  @media (max-width: 900px) {
+    .hero-about { padding: 150px 36px 80px; }
+    .story-section { padding: 70px 24px; }
+    .values-section, .stats-section { padding: 70px 36px; }
+    .values-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="float-nav">
+  <a href="beauty-shop.html" class="nav-logo">LUMÉ</a>
+  <a href="shop.html">Shop</a>
+  <a href="about.html" class="active">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="cart.html">Cart</a>
+</nav>
+
+<section class="hero-about">
+  <p class="eyebrow">Our Story</p>
+  <h1>Born from a refusal to <em>settle</em> for either</h1>
+</section>
+
+<section class="story-section">
+  <p>LUMÉ began in a small lab in 2021, with a simple frustration: clean beauty meant weak formulas, and effective beauty meant compromising on what went into the bottle. We didn't believe that trade-off was necessary — we just hadn't seen anyone prove it wrong yet.</p>
+
+  <p>So we spent eighteen months reformulating from scratch. Every ingredient had to clear two bars: it had to be traceable to a source we'd stand behind, and it had to work — not eventually, not theoretically, but visibly, on real skin, in weeks rather than months.</p>
+
+  <div class="pull-quote">"Skin doesn't need more — it needs better."</div>
+
+  <p>What emerged was a small collection, deliberately so. We make six products, not sixty. Each one earns its place through what it does, not what it claims. We test on real people before we test on paper, and we'd rather discontinue a product than dilute it.</p>
+
+  <p>Today LUMÉ is made in small batches, packaged with intention, and used by people who've stopped asking beauty to be everything and started asking it to be honest.</p>
+</section>
+
+<section class="values-section">
+  <div class="section-header">
+    <p class="eyebrow" style="text-align:center;">What We Stand On</p>
+    <h2 class="section-title">Three things we <em>won't</em> negotiate</h2>
+  </div>
+
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-icon">✦</div>
+      <h4>Radical Transparency</h4>
+      <p>Every ingredient, every percentage, every source — listed plainly. No proprietary blends hiding what's actually inside.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">✦</div>
+      <h4>Proof Over Promises</h4>
+      <p>We publish our trial results, good and middling. If a formula doesn't outperform what's already on the market, it doesn't ship.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">✦</div>
+      <h4>Slow by Design</h4>
+      <p>Small batches, considered packaging, no seasonal drops for the sake of drops. We'd rather make six things well than sixty adequately.</p>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <p class="eyebrow">By the Numbers</p>
+  <h2 class="section-title">Five years of <em>doing it right</em></h2>
+
+  <div class="stats-grid">
+    <div>
+      <div class="stat-num">6</div>
+      <div class="stat-label">Products Made</div>
+    </div>
+    <div>
+      <div class="stat-num">98%</div>
+      <div class="stat-label">Natural Origin</div>
+    </div>
+    <div>
+      <div class="stat-num">0</div>
+      <div class="stat-label">Animal Tested</div>
+    </div>
+    <div>
+      <div class="stat-num">40K+</div>
+      <div class="stat-label">Skin Stories</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand-name">LUMÉ</div>
+  <div class="footer-bottom-text">© 2026 LUMÉ Beauty. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
