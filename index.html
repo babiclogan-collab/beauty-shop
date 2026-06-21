@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUMÉ — Clean Beauty</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --obsidian: #0A0709;
+    --void: #110D12;
+    --deep: #1A1020;
+    --amethyst: #3D1F5C;
+    --violet: #6B3FA0;
+    --smoke: #C8B8D8;
+    --mist: #E8E0F0;
+    --ember: #D4A853;
+    --crimson: #8B2252;
+    --text: #E8E0F0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--obsidian);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* FLOATING NAV */
+  .float-nav {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-80px);
+    background: rgba(10, 7, 9, 0.88);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(107, 63, 160, 0.3);
+    border-radius: 50px;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    z-index: 100;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .float-nav.visible { transform: translateX(-50%) translateY(0); }
+  .float-nav a {
+    color: var(--smoke);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 400;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .float-nav a:hover { opacity: 1; color: var(--mist); }
+  .float-nav .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--ember);
+    opacity: 1;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+    background: var(--obsidian);
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 80px 80px;
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(105deg, #0A0709 60%, transparent 100%);
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 28px;
+    font-weight: 500;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 6vw, 6.5rem);
+    font-weight: 300;
+    line-height: 1.0;
+    color: var(--mist);
+    margin-bottom: 32px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--violet);
+  }
+
+  .hero-sub {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: rgba(200, 184, 216, 0.6);
+    max-width: 340px;
+    margin-bottom: 48px;
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--amethyst);
+    color: var(--mist);
+    text-decoration: none;
+    padding: 18px 36px;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border-radius: 50px;
+    font-weight: 500;
+    border: 1px solid rgba(107, 63, 160, 0.5);
+    transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+    width: fit-content;
+  }
+  .hero-cta:hover { background: var(--violet); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(107,63,160,0.4); }
+  .hero-cta svg { width: 14px; height: 14px; fill: var(--ember); flex-shrink: 0; }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 55% 45%, #3D1F5C 0%, #1A1020 45%, #0A0709 80%);
+  }
+
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(139, 34, 82, 0.35) 0%, transparent 55%);
+  }
+
+  .hero-product {
+    position: absolute;
+    bottom: -20px;
+    left: -40px;
+    width: 110%;
+    height: 110%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  /* Illustrated product — CSS art */
+  .product-bottle {
+    position: relative;
+    width: 180px;
+    margin-bottom: 60px;
+  }
+
+  .bottle-body {
+    width: 120px;
+    height: 220px;
+    background: linear-gradient(135deg, #2A1640 0%, #3D1F5C 40%, #6B3FA0 100%);
+    border-radius: 60px 60px 40px 40px;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: -8px 12px 60px rgba(107,63,160,0.5), inset 2px 2px 0 rgba(200,184,216,0.15), 0 0 40px rgba(107,63,160,0.2);
+  }
+
+  .bottle-neck {
+    width: 54px;
+    height: 50px;
+    background: linear-gradient(135deg, #3D1F5C 0%, #6B3FA0 100%);
+    border-radius: 8px 8px 0 0;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: inset 1px 1px 0 rgba(200,184,216,0.2);
+  }
+
+  .bottle-cap {
+    width: 64px;
+    height: 28px;
+    background: linear-gradient(135deg, #0A0709 0%, #1A1020 100%);
+    border-radius: 6px 6px 0 0;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.8), 0 0 20px rgba(212,168,83,0.15);
+    border-top: 1px solid rgba(212,168,83,0.3);
+  }
+
+  .bottle-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 80%;
+  }
+
+  .bottle-label span {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--mist);
+  }
+
+  .bottle-label small {
+    display: block;
+    font-size: 0.45rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-top: 4px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .hero-tag {
+    position: absolute;
+    top: 48px;
+    right: 40px;
+    background: rgba(10, 7, 9, 0.5);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 168, 83, 0.25);
+    border-radius: 16px;
+    padding: 18px 22px;
+    color: var(--mist);
+    text-align: center;
+  }
+
+  .hero-tag strong {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--ember);
+  }
+
+  .hero-tag span {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  /* MARQUEE */
+  .marquee-strip {
+    background: var(--deep);
+    border-top: 1px solid rgba(107, 63, 160, 0.2);
+    border-bottom: 1px solid rgba(107, 63, 160, 0.2);
+    padding: 16px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee-inner {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+  }
+
+  .marquee-inner span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--smoke);
+    letter-spacing: 0.08em;
+    padding: 0 40px;
+  }
+
+  .marquee-inner span::after {
+    content: '✦';
+    color: var(--ember);
+    margin-left: 40px;
+    font-style: normal;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTION HEADER */
+  .section-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .section-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    color: var(--mist);
+    line-height: 1.15;
+  }
+
+  .section-title em { font-style: italic; color: var(--violet); }
+
+  /* FEATURED PRODUCTS */
+  .products-section {
+    padding: 100px 80px;
+    background: var(--void);
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .product-card {
+    background: var(--deep);
+    border: 1px solid rgba(107, 63, 160, 0.2);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    cursor: pointer;
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px rgba(107,63,160,0.25);
+    border-color: rgba(107, 63, 160, 0.5);
+  }
+
+  .product-card-img {
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-card:nth-child(1) .product-card-img { background: radial-gradient(ellipse at 50% 60%, #3D1F5C 0%, #1A1020 100%); }
+  .product-card:nth-child(2) .product-card-img { background: radial-gradient(ellipse at 50% 60%, #5C1F3D 0%, #1A1020 100%); }
+  .product-card:nth-child(3) .product-card-img { background: radial-gradient(ellipse at 50% 60%, #2A1F5C 0%, #0A0709 100%); }
+
+  .product-card-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: rgba(212, 168, 83, 0.15);
+    border: 1px solid rgba(212, 168, 83, 0.4);
+    color: var(--ember);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  /* Mini product illustrations */
+  .mini-serum { position: relative; }
+  .mini-serum .ms-body {
+    width: 70px;
+    height: 160px;
+    background: linear-gradient(160deg, #3D1F5C, #6B3FA0);
+    border-radius: 35px 35px 20px 20px;
+    box-shadow: -4px 8px 30px rgba(107,63,160,0.5), 0 0 20px rgba(107,63,160,0.2);
+  }
+  .mini-serum .ms-dropper {
+    width: 20px;
+    height: 40px;
+    background: linear-gradient(to bottom, #0A0709, #1A1020);
+    border-radius: 4px 4px 0 0;
+    margin: 0 auto;
+    border-top: 1px solid rgba(212,168,83,0.3);
+  }
+  .mini-serum .ms-tip {
+    width: 8px;
+    height: 16px;
+    background: var(--ember);
+    border-radius: 0 0 4px 4px;
+    margin: 0 auto;
+    box-shadow: 0 0 8px rgba(212,168,83,0.6);
+  }
+
+  .mini-cream { position: relative; }
+  .mini-cream .mc-lid {
+    width: 110px;
+    height: 24px;
+    background: linear-gradient(135deg, #0A0709, #1A1020);
+    border-radius: 8px 8px 0 0;
+    margin: 0 auto;
+    box-shadow: 0 -4px 20px rgba(107,63,160,0.3);
+    border-top: 1px solid rgba(212,168,83,0.25);
+  }
+  .mini-cream .mc-body {
+    width: 130px;
+    height: 70px;
+    background: linear-gradient(135deg, #3D1F5C, #6B3FA0);
+    border-radius: 6px 6px 16px 16px;
+    box-shadow: -4px 6px 24px rgba(107,63,160,0.4);
+  }
+
+  .mini-mist { position: relative; }
+  .mini-mist .mm-body {
+    width: 90px;
+    height: 140px;
+    background: linear-gradient(135deg, #2A1640, #5C1F3D);
+    border-radius: 14px;
+    box-shadow: -4px 8px 30px rgba(139,34,82,0.4);
+  }
+  .mini-mist .mm-head {
+    width: 50px;
+    height: 32px;
+    background: linear-gradient(135deg, #0A0709, #1A1020);
+    border-radius: 4px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(212,168,83,0.2);
+  }
+  .mini-mist .mm-nozzle {
+    width: 14px;
+    height: 18px;
+    background: var(--ember);
+    border-radius: 0 0 4px 0;
+    margin-left: auto;
+    margin-right: 8px;
+    box-shadow: 0 0 6px rgba(212,168,83,0.5);
+  }
+
+  .product-card-info {
+    padding: 28px 28px 32px;
+  }
+
+  .product-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--mist);
+    margin-bottom: 6px;
+  }
+
+  .product-card-desc {
+    font-size: 0.82rem;
+    color: rgba(200, 184, 216, 0.55);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+
+  .product-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .product-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--ember);
+  }
+
+  .add-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--amethyst);
+    border: 1px solid rgba(107, 63, 160, 0.5);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    color: var(--mist);
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+
+  .add-btn:hover { background: var(--violet); transform: scale(1.1); box-shadow: 0 0 16px rgba(107,63,160,0.5); }
+
+  /* RITUAL SECTION */
+  .ritual-section {
+    background: var(--deep);
+    border-top: 1px solid rgba(107, 63, 160, 0.15);
+    border-bottom: 1px solid rgba(107, 63, 160, 0.15);
+    padding: 100px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .ritual-left {}
+
+  .ritual-left .section-eyebrow { color: var(--ember); text-align: left; }
+  .ritual-left .section-title { color: var(--mist); text-align: left; }
+  .ritual-left .section-title em { color: var(--violet); }
+
+  .ritual-desc {
+    color: rgba(200, 184, 216, 0.5);
+    font-size: 0.9rem;
+    line-height: 1.85;
+    margin-top: 24px;
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+
+  .ritual-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(212, 168, 83, 0.35);
+    color: var(--ember);
+    text-decoration: none;
+    padding: 16px 32px;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+  }
+  .ritual-cta:hover {
+    background: rgba(212, 168, 83, 0.08);
+    border-color: var(--ember);
+    box-shadow: 0 0 24px rgba(212,168,83,0.15);
+  }
+
+  .ritual-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .ritual-step {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: rgba(107, 63, 160, 0.25);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 48px;
+  }
+
+  .step-content h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--smoke);
+    margin-bottom: 6px;
+  }
+
+  .step-content p {
+    font-size: 0.82rem;
+    color: rgba(200, 184, 216, 0.45);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials-section {
+    padding: 100px 80px;
+    background: var(--obsidian);
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .testimonial-card {
+    border: 1px solid rgba(107, 63, 160, 0.18);
+    background: var(--void);
+    border-radius: 20px;
+    padding: 36px 32px;
+    transition: border-color 0.3s;
+  }
+
+  .testimonial-card:hover { border-color: rgba(107, 63, 160, 0.4); }
+
+  .stars {
+    color: var(--ember);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+
+  .testimonial-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--smoke);
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .author-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--mist);
+    flex-shrink: 0;
+  }
+
+  .testimonial-card:nth-child(1) .author-avatar { background: #3D1F5C; }
+  .testimonial-card:nth-child(2) .author-avatar { background: #5C1F3D; }
+  .testimonial-card:nth-child(3) .author-avatar { background: #2A1F5C; }
+
+  .author-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--smoke);
+  }
+
+  .author-handle {
+    font-size: 0.72rem;
+    color: rgba(200, 184, 216, 0.4);
+    margin-top: 2px;
+  }
+
+  /* EMAIL SIGNUP */
+  .signup-section {
+    background: radial-gradient(ellipse at 50% 0%, #3D1F5C 0%, #110D12 60%);
+    border-top: 1px solid rgba(107, 63, 160, 0.25);
+    padding: 100px 80px;
+    text-align: center;
+  }
+
+  .signup-section .section-title { color: var(--mist); }
+  .signup-section .section-eyebrow { color: var(--ember); }
+
+  .signup-desc {
+    color: rgba(200, 184, 216, 0.5);
+    font-size: 0.9rem;
+    margin: 20px auto 40px;
+    max-width: 420px;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .signup-form {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .signup-input {
+    flex: 1;
+    padding: 18px 24px;
+    border: 1px solid rgba(107, 63, 160, 0.3);
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    background: rgba(26, 16, 32, 0.8);
+    color: var(--mist);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .signup-input:focus { border-color: rgba(107, 63, 160, 0.7); }
+  .signup-input::placeholder { color: rgba(200, 184, 216, 0.3); }
+
+  .signup-btn {
+    padding: 18px 32px;
+    background: var(--amethyst);
+    color: var(--mist);
+    border: 1px solid rgba(107, 63, 160, 0.5);
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+
+  .signup-btn:hover { background: var(--violet); box-shadow: 0 0 24px rgba(107,63,160,0.4); }
+
+  /* FOOTER */
+  footer {
+    background: #050305;
+    border-top: 1px solid rgba(107, 63, 160, 0.15);
+    padding: 60px 80px 40px;
+    color: rgba(200, 184, 216, 0.35);
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+
+  .footer-brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--ember);
+    margin-bottom: 14px;
+  }
+
+  .footer-tagline {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: rgba(200, 184, 216, 0.35);
+    font-weight: 300;
+  }
+
+  .footer-col h5 {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 16px;
+    font-weight: 500;
+    opacity: 0.7;
+  }
+
+  .footer-col a {
+    display: block;
+    color: rgba(200, 184, 216, 0.35);
+    text-decoration: none;
+    font-size: 0.83rem;
+    margin-bottom: 10px;
+    font-weight: 300;
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: var(--smoke); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(107, 63, 160, 0.1);
+    padding-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { height: 400px; }
+    .hero-left { padding: 100px 36px 60px; }
+    .products-grid, .testimonials-grid { grid-template-columns: 1fr 1fr; }
+    .ritual-section { grid-template-columns: 1fr; padding: 80px 36px; }
+    .products-section, .testimonials-section, .signup-section { padding: 80px 36px; }
+    footer { padding: 60px 36px 32px; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 580px) {
+    .hero-left { padding: 90px 28px 50px; }
+    .products-grid, .testimonials-grid { grid-template-columns: 1fr; }
+    .signup-form { flex-direction: column; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    .products-section, .testimonials-section, .signup-section { padding: 60px 24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-inner { animation: none; }
+    .product-card, .hero-cta, .add-btn { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating Nav -->
+<nav class="float-nav" id="floatNav">
+  <a href="beauty-shop.html" class="nav-logo">LUMÉ</a>
+  <a href="shop.html">Shop</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="cart.html">Cart</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Clean · Conscious · Luxurious</p>
+    <h1 class="hero-title">Skin that<br><em>remembers</em><br>itself</h1>
+    <p class="hero-sub">Botanical formulas crafted without compromise. Every ingredient earns its place.</p>
+    <a href="shop.html" class="hero-cta">
+      Explore Collection
+      <svg viewBox="0 0 20 20"><path d="M10 0l10 10-10 10-1.4-1.4 7.6-7.6H0V9h16.2L8.6 1.4z"/></svg>
+    </a>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-bg"></div>
+
+    <div class="hero-tag">
+      <strong>98%</strong>
+      <span>Natural origin<br>ingredients</span>
+    </div>
+
+    <div class="hero-product">
+      <div class="product-bottle">
+        <div class="bottle-cap"></div>
+        <div class="bottle-neck"></div>
+        <div class="bottle-body">
+          <div class="bottle-label">
+            <span>LUMÉ</span>
+            <small>Radiance Serum</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-inner">
+    <span>Vegan & Cruelty-Free</span><span>Dermatologist Tested</span><span>Sustainable Packaging</span><span>Cold-Pressed Botanicals</span><span>Free From Parabens</span><span>Award Winning Formulas</span>
+    <span>Vegan & Cruelty-Free</span><span>Dermatologist Tested</span><span>Sustainable Packaging</span><span>Cold-Pressed Botanicals</span><span>Free From Parabens</span><span>Award Winning Formulas</span>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="products-section" id="products">
+  <div class="section-header">
+    <p class="section-eyebrow">Bestsellers</p>
+    <h2 class="section-title">Your <em>ritual</em> begins here</h2>
+  </div>
+
+  <div class="products-grid">
+    <!-- Card 1 -->
+    <div class="product-card">
+      <div class="product-card-img">
+        <div class="product-card-badge">Best Seller</div>
+        <div class="mini-serum">
+          <div class="ms-dropper"></div>
+          <div class="ms-tip"></div>
+          <div class="ms-body"></div>
+        </div>
+      </div>
+      <div class="product-card-info">
+        <h3 class="product-card-name">Radiance Serum</h3>
+        <p class="product-card-desc">Vitamin C, niacinamide & rosehip. Brightens, firms and evens in two weeks.</p>
+        <div class="product-card-footer">
+          <span class="product-price">$68</span>
+          <button class="add-btn" aria-label="Add to cart">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="product-card">
+      <div class="product-card-img">
+        <div class="product-card-badge">New</div>
+        <div class="mini-cream">
+          <div class="mc-lid"></div>
+          <div class="mc-body"></div>
+        </div>
+      </div>
+      <div class="product-card-info">
+        <h3 class="product-card-name">Velvet Repair Cream</h3>
+        <p class="product-card-desc">Shea, ceramides & bakuchiol. Deep overnight restoration without heaviness.</p>
+        <div class="product-card-footer">
+          <span class="product-price">$84</span>
+          <button class="add-btn" aria-label="Add to cart">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="product-card">
+      <div class="product-card-img">
+        <div class="product-card-badge">Limited</div>
+        <div class="mini-mist">
+          <div class="mm-nozzle"></div>
+          <div class="mm-head"></div>
+          <div class="mm-body"></div>
+        </div>
+      </div>
+      <div class="product-card-info">
+        <h3 class="product-card-name">Dew Mist</h3>
+        <p class="product-card-desc">Rose water, hyaluronic acid & glycerin. Instant hydration, anytime glow.</p>
+        <div class="product-card-footer">
+          <span class="product-price">$42</span>
+          <button class="add-btn" aria-label="Add to cart">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RITUAL -->
+<section class="ritual-section" id="ritual">
+  <div class="ritual-left">
+    <div class="section-header" style="text-align:left; margin-bottom: 24px;">
+      <p class="section-eyebrow">The Method</p>
+      <h2 class="section-title">A <em>three-step</em><br>morning ritual</h2>
+    </div>
+    <p class="ritual-desc">Skin doesn't need more — it needs better. Our morning ritual takes under four minutes and gives your skin everything it actually needs to thrive through the day.</p>
+    <a href="#products" class="ritual-cta">Shop the Ritual Set →</a>
+  </div>
+
+  <div class="ritual-steps">
+    <div class="ritual-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Cleanse gently</h4>
+        <p>Our pH-balanced gel removes overnight buildup without stripping your barrier. Skin is prepared, not punished.</p>
+      </div>
+    </div>
+    <div class="ritual-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Treat with intention</h4>
+        <p>Apply the Radiance Serum to damp skin. Two drops is all it takes. Pat in — never rub.</p>
+      </div>
+    </div>
+    <div class="ritual-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Seal and protect</h4>
+        <p>Lock in moisture with Velvet Cream and finish with SPF. The barrier you build today shows up tomorrow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="reviews">
+  <div class="section-header">
+    <p class="section-eyebrow">Real Skin, Real Results</p>
+    <h2 class="section-title">What they <em>actually</em> said</h2>
+  </div>
+
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Three weeks in and my skin is doing things I'd given up on. The serum is genuinely unlike anything I've tried."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">A</div>
+        <div>
+          <div class="author-name">Amara O.</div>
+          <div class="author-handle">Verified buyer</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"I've spent years on 12-step routines. LUMÉ simplified everything and my skin is better for it."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">S</div>
+        <div>
+          <div class="author-name">Sofia M.</div>
+          <div class="author-handle">Verified buyer</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"The Dew Mist lives in my bag. I use it between meetings. My coworkers now ask what I'm doing differently."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">J</div>
+        <div>
+          <div class="author-name">Jade K.</div>
+          <div class="author-handle">Verified buyer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="signup-section" id="newsletter">
+  <div class="section-header">
+    <p class="section-eyebrow">Join the Circle</p>
+    <h2 class="section-title">10% off your<br><em>first order</em></h2>
+  </div>
+  <p class="signup-desc">Early access to launches, formulation stories, and slow beauty rituals — delivered occasionally, never excessively.</p>
+  <div class="signup-form">
+    <input type="email" class="signup-input" placeholder="your@email.com" aria-label="Email address">
+    <button class="signup-btn">Subscribe</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">LUMÉ</div>
+      <p class="footer-tagline">Clean beauty rooted in botanical science.<br>Crafted to work with your skin, not against it.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Shop</h5>
+      <a href="#">Serums</a>
+      <a href="#">Moisturisers</a>
+      <a href="#">Mists & Toners</a>
+      <a href="#">Bundles</a>
+    </div>
+    <div class="footer-col">
+      <h5>Learn</h5>
+      <a href="#">Our Ingredients</a>
+      <a href="#">The Science</a>
+      <a href="#">Skin Types</a>
+      <a href="#">Journal</a>
+    </div>
+    <div class="footer-col">
+      <h5>Help</h5>
+      <a href="#">Shipping & Returns</a>
+      <a href="#">FAQ</a>
+      <a href="#">Contact</a>
+      <a href="#">Sustainability</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 LUMÉ Beauty. All rights reserved.</span>
+    <span>Privacy · Terms · Accessibility</span>
+  </div>
+</footer>
+
+<script>
+  // Floating nav on scroll
+  const nav = document.getElementById('floatNav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) nav.classList.add('visible');
+    else nav.classList.remove('visible');
+  }, { passive: true });
+
+  // Add to cart micro-interaction
+  document.querySelectorAll('.add-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const orig = btn.textContent;
+      btn.textContent = '✓';
+      btn.style.background = '#D4A853';
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.background = '';
+      }, 1200);
+    });
+  });
+</script>
+</body>
+</html>
